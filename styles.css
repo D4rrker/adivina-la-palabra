@@ -1,0 +1,300 @@
+:root {
+  --outline-color: #90caf9;
+
+  --bg-guessed: #43a047;
+  --bg-misplaced: #e4a81d;
+  --bg-missing: #757575;
+  --bg-keyboard: #3f4752;
+  --bg-keyboard-missing: #22262d85;
+  --bg-end-parent-card: #0005;
+
+  --bg-letter-win: #318f36;
+  --bg-letter-defeat: #b10c00;
+
+  --bg-win-dark: #00570c31;
+  --bg-win-light: #43f35a7c;
+  --color-win-button: #0b5a00;
+
+  --bg-defeat-dark: #57000031;
+  --bg-defeat-light: #f343437c;
+  --color-defeat-button: #5a0000;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  background-color: #1e1e1e;
+  height: 100vh;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    color: #b4b4b4;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 1rem 0 3rem 0;
+  }
+}
+
+.container-grid {
+  display: grid;
+  gap: 0.5rem 0;
+  margin-bottom: 8rem;
+}
+
+.row-section {
+  display: flex;
+  gap: 0 0.5rem;
+}
+
+.letterBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  outline: 1px solid #aaa;
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  caret-color: transparent;
+  cursor: default;
+  background-color: transparent;
+  border: none;
+  color: #f0f0f0;
+  border-radius: 0.5rem;
+}
+
+.letterBox-checked {
+  outline: none;
+}
+
+.letterBox-selected {
+  outline: 2px solid var(--outline-color);
+}
+
+.current-row {
+  cursor: pointer;
+}
+
+/* Estilos para la ventana de vicotria/derrota */
+
+.container-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-end-parent-card);
+}
+
+.card-medal {
+  text-align: center;
+  padding: 0.6rem 0;
+
+  img {
+    animation-name: animation-medal;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+}
+
+.card-title-word {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem 0;
+  color: #f0f0f0;
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: bold;
+  }
+
+  .word {
+    color: #f0f0f0;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 4rem 0;
+
+    .container-word {
+      display: flex;
+      gap: 0 0.5rem;
+
+      .letter-word {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 5rem;
+        height: 5rem;
+        border-radius: 0.5rem;
+        font-size: 2rem;
+      }
+
+      .letter-word-win {
+        background-color: var(--bg-letter-win);
+      }
+
+      .letter-word-defeat {
+        background-color: var(--bg-letter-defeat);
+      }
+    }
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  width: max-content;
+  height: auto;
+  padding: 1rem 10rem;
+  border-radius: 0.4rem;
+  backdrop-filter: blur(0.5rem);
+
+  button {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.6rem 2rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 10rem;
+    transition: background 0.2s ease;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      background-color: #c1c1c1;
+      transform: translateY(-5%);
+    }
+  }
+
+  .styles-button-win {
+    color: var(--color-win-button);
+  }
+
+  .styles-button-defeat {
+    color: var(--color-defeat-button);
+  }
+}
+
+.card-win {
+  background: linear-gradient(
+    to top right,
+    var(--bg-win-dark),
+    var(--bg-win-light)
+  );
+}
+
+.card-defeat {
+  background: linear-gradient(
+    to top right,
+    var(--bg-defeat-dark),
+    var(--bg-defeat-light)
+  );
+}
+
+.expand-card {
+  opacity: 1;
+}
+
+/* Clases para verificar si existen o están mal ubicadas las letras*/
+
+.guessed {
+  background-color: var(--bg-guessed) !important;
+}
+
+.misplaced {
+  background-color: var(--bg-misplaced) !important;
+}
+
+.missing {
+  background-color: var(--bg-missing);
+}
+
+.keyboard-missing {
+  background-color: var(--bg-keyboard-missing) !important;
+  transform: none !important;
+  cursor: default !important;
+}
+
+/* Estilos para el teclado */
+
+.container-keyboard {
+  display: grid;
+  gap: 0.5rem 0;
+  grid-template-rows: repeat(3, 1fr);
+
+  .row-section-keyboard {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 4rem;
+      height: 4rem;
+      background-color: var(--bg-keyboard);
+      border-radius: 0.5rem;
+      color: #f0f0f0;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s ease-out;
+    }
+
+    div:hover {
+      transform: scale(1.1);
+    }
+
+    div:active {
+      transform: scale(1.05);
+    }
+
+    .keyboard-special-row {
+      flex-grow: 2;
+    }
+  }
+
+  .special {
+    display: flex;
+  }
+}
+
+/* Animaciones */
+
+@keyframes animation-medal {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}

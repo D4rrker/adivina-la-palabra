@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La palabra del día</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./js/main.js" type="module" defer></script>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <h1>Sin acentos</h1>
+        <div class="container-grid">
+          <div class="row-section"></div>
+          <div class="row-section"></div>
+          <div class="row-section"></div>
+          <div class="row-section"></div>
+          <div class="row-section"></div>
+        </div>
+
+        <div class="container-keyboard">
+          <div class="row-section-keyboard"></div>
+          <div class="row-section-keyboard"></div>
+          <div class="row-section-keyboard"></div>
+        </div>
+      </div>
+    </main>
+
+    <template id="card-template">
+      <div class="container-card">
+        <div class="card">
+          <div class="card-medal"></div>
+          <div class="card-title-word">
+            <h2></h2>
+            <div class="word"></div>
+          </div>
+          <button>Reiniciar</button>
+        </div>
+      </div>
+    </template>
+  </body>
+</html>
